@@ -1,0 +1,53 @@
+.gridPagePlugin {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #666;
+  border-top: 1px solid #ccc; }
+  .gridPagePlugin > nav {
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    float: left; }
+    .gridPagePlugin > nav a {
+      width: 16px;
+      height: 16px;
+      margin-top: 7px;
+      margin-right: 10px;
+      background-size: 100% 100%;
+      display: block;
+      float: left; }
+      .gridPagePlugin > nav a:hover {
+        background-color: rgba(0, 0, 0, 0.2); }
+    .gridPagePlugin > nav .showFirstPage {
+      background-image: url(../images/icons/page-first.png); }
+    .gridPagePlugin > nav .showLastPage {
+      background-image: url(../images/icons/page-last.png); }
+    .gridPagePlugin > nav .showPrePage {
+      background-image: url(../images/icons/page-prev.png); }
+    .gridPagePlugin > nav .showNextPage {
+      background-image: url(../images/icons/page-next.png); }
+    .gridPagePlugin > nav .reflesh {
+      background-image: url(../images/icons/refresh.png); }
+    .gridPagePlugin > nav div {
+      float: left; }
+      .gridPagePlugin > nav div input {
+        width: 40px;
+        height: 18px;
+        line-height: 18px;
+        color: #666;
+        text-align: center;
+        font-size: 14px; }
+  .gridPagePlugin > div {
+    float: right;
+    height: 30px;
+    font-size: 14px;
+    line-height: 30px; }
+
+/*# sourceMappingURL=quanjs.css.map */

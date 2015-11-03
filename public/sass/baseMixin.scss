@@ -1,0 +1,19 @@
+@mixin boxSizing($sizing){
+  -webkit-box-sizing : $sizing;
+  -ms-box-sizing : $sizing;
+  -moz-box-sizing : $sizing;
+  -o-box-sizing : $sizing;
+  box-sizing : $sizing;
+}
+
+@mixin opacity($opacity:50) {
+  opacity: $opacity / 100;
+  filter: alpha(opacity=$opacity);
+}
+
+@mixin appearance($isAppearance:none){
+  -webkit-appearance : $isAppearance;
+  -ms-appearance : $isAppearance;
+  -moz-bappearance : $isAppearance;
+  -o-appearance : $isAppearance;
+}

@@ -1,0 +1,46 @@
+<head>
+	<link rel="stylesheet" href="http://10.1.1.205:3001/css/base.css">
+	<link rel="stylesheet" href="http://10.1.1.205:3001/css/manageModules/manageUI.css">
+	<link rel="stylesheet" href="http://10.1.1.205:3001/css/manageModules/quessionmanage.css">
+	<script src="http://10.1.1.205:3001/scripts/config.js"></script>
+	<script src="http://10.1.1.205:3001/scripts/libs/quanJS/libs/jquery.js"></script>
+	<script src="http://10.1.1.205:3001/scripts/libs/quanJS/libs/underscore.js"></script>
+	<script src="http://10.1.1.205:3001/scripts/libs/quanJS/detailModule/quanValidation.js"></script>
+	<script src="http://10.1.1.205:3001/scripts/libs/quanJS/detailModule/quanAjax.js"></script>
+	<script src="http://10.1.1.205:3001/scripts/libs/quanJS/detailModule/quanForm.js"></script>
+	<script src="http://10.1.1.205:3001/scripts/libs/quanJS/quan.js"></script>
+</head>
+<body>
+	<div class="form-wrapper">
+		<form id="questionQuery" method="POST" class="formUI">
+			<ul>
+				<li>
+				  <label>题目类型:</label>
+				  <i class="selectIcon"></i>
+				  <select id="questionType" name="questionType">
+				 	 <option value="全部">全部</option>	
+				  	 <option value="社会科学">社会科学</option>	
+				  	 <option value="文学">文学</option>	
+				  	 <option value="物理">物理</option>	
+				   	 <option value=生物">生物</option>	
+				  	 <option value="化学">化学</option>	
+				  </select>
+				</li>
+				<li>
+				  <label>开始时间:</label>
+				  <input id="endTime" type="date">
+				</li>
+				<li>
+				  <label>结束时间:</label>
+				  <input id="endTime" type="date">
+				</li>
+				<li>
+				  <a class="btn" id="querysubmit">查询</a>
+				</li>
+			</ul>
+		</form>
+	</div>
+	<script src="http://10.1.1.205:3001/scripts/forms/managemodules/QuestionQuery.js"></script>
+	<script src="http://10.1.1.205:3001/scripts/viewControllers/managemodules/QuessionManageViewController.js"></script>
+	<script src="http://10.1.1.205:3001/scripts/controllers/managemodules/QuestionManageController.js"></script>
+</body>

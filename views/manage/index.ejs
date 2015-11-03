@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>index</title>
+    <link rel="stylesheet" href="css/base.css" >
+    <link rel="stylesheet" href="css/manageFrame.css" >
+    <script src="scripts/dev/libs/quanJS/libs/jquery.js"></script>
+  </head>
+  <body>
+  <div role="container">
+  	<nav id="menu">
+  		<header>
+  			<div role="logo"><img src="images/logo/dolphin.jpg"></div>
+  		</header>
+  		<ul role="navigation">
+  			<li class="navTitle childNavi" id="typeManage" data-route="/manage/typemanage" data-state="notActive"><a>类型管理</a></li>
+  			<li class="navTitle childNavi" id="quessionManage" data-route="/manage/quessionmanage" data-state="notActive"><a>题目管理</a></li>
+  			<li class="navTitle childNavi" id="scoreManage" data-route="/manage/scoremanage" data-state="notActive"><a>成绩管理</a></li>
+  			<li class="navTitle childNavi" id="userManage" data-route="/manage/usermanage" data-state="notActive"><a>用户管理</a></li>
+  		</ul>
+  		<footer>
+  			<div>
+  				吴江权
+  				<span>退出</span>
+  			</div>
+  			<ul></ul>
+  		</footer>
+  	</nav>
+  	<div id="workPlace">
+  		<nav id="tabBar">
+  			<ul>
+  				<li class="currentNavigation" id="indextabbar">
+  					<a>初始页</a>
+  				</li>
+  			</ul>
+  		</nav>
+  		<div id="views">
+  			<iframe src="manage/index" id="indexiframe"></iframe>
+  		</div>
+  	</div>
+  </div>
+  <script src="scripts/dev/manageFrame.js"></script>
+  <script src="scripts/dev/main.js"></script>
+  </body>
+</html>

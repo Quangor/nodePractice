@@ -1,0 +1,61 @@
+@import "baseMixin";
+
+.gridPagePlugin{
+  width:100%;
+  height:50px;
+  padding:10px;
+  @include boxSizing(border-box); 
+  font-size:14px;
+  color:#666;
+  border-top:1px solid #ccc;
+  >nav{
+  	width:auto;
+  	height:30px;
+  	line-height:30px;
+  	float:left;
+  	a{
+  		width:16px;
+  		height:16px;
+  		margin-top:7px;
+  		margin-right:10px;
+		background-size:100% 100%;
+  		display:block;
+  		float:left;
+  		&:hover{
+  			background-color:rgba(0,0,0,0.2);
+  		}
+  	}
+  	.showFirstPage{
+  		background-image:url(../images/icons/page-first.png);
+  	}
+  	.showLastPage{
+  		background-image:url(../images/icons/page-last.png);
+  	}
+  	.showPrePage{
+  		background-image:url(../images/icons/page-prev.png);
+  	}
+  	.showNextPage{
+  		background-image:url(../images/icons/page-next.png);
+  	}
+  	.reflesh{
+  		background-image:url(../images/icons/refresh.png);
+  	}
+  	div{
+  		float:left;
+  		input{
+  			width:40px;
+  			height:18px;
+  			line-height:18px;
+  			color:#666;
+  			text-align:center;
+  			font-size:14px;
+  		}
+  	}
+  }
+  >div{
+  	float:right;
+    height: 30px;
+    font-size:14px;
+    line-height: 30px;
+  }
+}

@@ -1,0 +1,210 @@
+@import "baseMixin";
+
+@mixin fixedSize{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+@mixin hideScrollBar{
+  -ms-overflow-y-style: none;
+  overflow-y: -moz-scrollbars-none;
+}
+
+$frameBGColor : #2f4050;
+$frameFontColor : white;
+$baseFontSize : 12px;
+$contentfontSize : 14px;
+$strongFontSize : 16px;
+
+
+body>div[role="container"],body,html{
+  @include fixedSize;
+}
+
+div[role="container"]{
+  >*{
+    float:left;
+  }
+  background-color:$frameBGColor;
+  color:$frameFontColor;
+}
+
+nav#menu::-webkit-scrollbar { width: 0 !important }
+
+nav#menu{
+  position:absolute;
+  left:0;
+  top:0;
+  width:220px;
+  height:100%;
+  overflow:hidden;
+  overflow-y:auto;
+  @include hideScrollBar;
+  @include boxSizing(border-box);
+  header{
+    width:100%;
+    height:auto;
+    text-align:center;
+    div{
+      width:120px;
+      height:120px;
+      border-radius:100px;
+      margin:25px auto;
+      margin-left:30px;
+      border: 2px solid #19aa8d;
+      img{
+        width:100%;
+        height:100%;
+        border-radius:100px;
+      }
+    }
+  }
+  
+  ul[role="navigation"]{
+    width:100%;
+    height:auto;
+    margin-bottom:160px;
+    li{
+      width:100%;
+      min-height:40px;
+      line-height:40px;
+      @include boxSizing(border-box);
+      font-size:$strongFontSize;
+      &:hover{
+        cursor:pointer;
+        background:rgba(0,0,0,0.2)
+      }
+      a{
+        width:100%;
+        height:100%;
+        padding-left:30px;
+        padding-right:10px;
+        @include boxSizing(border-box);
+        overflow-y:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap; 
+        color:#a7b1c2;
+        display:block;
+        &:hover{
+          color:white;
+        }
+      }
+       >a:before{
+          content:"";
+          width:8px;
+          height:8px;
+          border-radius:15px;
+          border:1px solid rgba(255,255,255,0.7);
+          display:inline-block;
+          margin-right:18px;
+        }    
+    }
+    li.higherNavigation{
+      ul{
+        width:100%;
+        background:rgba(0,0,0,0.2);
+        border-left:3px solid #19aa8d;
+        @include boxSizing(border-box);
+        display:none;
+       >*{
+           padding-left:15px;
+       }
+        a:before{
+          height:0;
+          width:0;
+          border:0;
+        }
+      }
+    }
+  }
+  footer{
+    position:fixed;
+    bottom:0px;
+    height:150px;
+    width:220px;
+    padding-left:30px;
+    background-color:$frameBGColor;
+    @include boxSizing(border-box);
+    div{
+      height:40px;
+      line-height:40px;
+      span{
+        display:inline-block;
+        padding:0 15px;
+        cursor:pointer;
+        margin-left:20px;
+        font-size:14px;
+        &:hover{
+          color:rgba(255,255,255,0.6)
+        }
+      }
+    }
+  }
+}
+
+div#workPlace{
+  width:100%;
+  height:100%;
+  @include boxSizing(border-box);
+  overflow:hidden;
+  padding-left:220px;
+  nav{
+    width:100%;
+    height:30px;
+    border-top:2px solid #19aa8d;
+    ul{
+      @include fixedSize;
+      li{
+        position:relative;
+        height:100%;
+        min-width:50px;
+        max-width:150px;
+        padding:0 30px 0 10px;
+        overflow:hidden;
+        white-space:nowrap; 
+        text-overflow:ellipsis;
+        font-size:$contentfontSize;
+        background-color:#ccc;
+        color:black;
+        display:inline-block;
+        float:left;
+        &:hover{
+          background-color:#f3f3f4;
+          cursor:pointer;
+        }
+        line-height:32px;
+        border-right:2px solid #BABABA;
+        i.close{
+          display: block;
+          height: 20px;
+          width: 20px;
+          background: transparent url("../images/icons/close.png") no-repeat -20px 0px;
+          position: absolute;
+          top: 0px;
+          right: 0px;
+          cursor: pointer;
+          &:hover{
+            background-position:0 0 ;
+          }
+        }
+      }
+      li.currentNavigation{
+        background-color:#f3f3f4;
+      }
+    }
+  }
+  #views{
+    width:100%;
+    height:calc(100% - 35px);
+    background:#f3f3f4;
+    iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      outline:none;
+      box-shadow:none;
+    }
+  }
+}
+
