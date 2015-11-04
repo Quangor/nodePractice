@@ -2,8 +2,11 @@ var QuanStore = (function($,validator,quanGlobal){
 	return function QuanStore(config){
 		var me  = this;
 		this.model = new config.model();
-		
+		this.pageSize = config.pageSize || 0;
+		this.currentPageIndex = 0;
 		this.records = [];
+		this.currentFilter = config.filter || "";
+		
 		this.averrage = function(field){
 			var sum = 0;
 			var len = this.records.length;
@@ -49,19 +52,144 @@ var QuanStore = (function($,validator,quanGlobal){
 			return null;
 		};
 		
-		this.load = function(callback){
+		this.indexof = function(record){
+			for(var i =0 ; i<this.records.length;i++){
+				if(quanGlobal.compare(this.records[i],record)){
+					return i;
+				}
+			}
+			return null;
+		};
+		
+		this.doLoad = function(filters,callback){
 			this.model.load(function(datas){
 				me.records = quanGlobal.clone(datas);
+				if(callback && 'function' == typeof callback)
+					callback(datas);
+			},filters);
+		};
+		
+		this.load = function(callback){
+			var filters = this.queryFilterCollector({
+				limit : this.pageSize,
+				skip : this.records.length
+			});
+			if(this.pageSize){
+				this.doLoad(filters,callback);	
+			}else{
+				this.doLoad({
+					conditions : this.currentFilter,
+				},callback);	
+			}
+		};
+		
+		this.loadNextPage = function(callback){
+			var currentLength = this.records.length;
+			var pageLength = currentLength/	this.pageSize;
+			var filters = this.queryFilterCollector({
+				limit : this.pageSize,
+				skip : this.records.length
+			});
+			this.doLoad(filters,callback);
+		};
+		
+		this.loadPageAt = function(index,callback){
+			//this.currentPageIndex = index;
+			var currentLength = this.records.length;
+			var pageLength = currentLength/	this.pageSize;
+			var filters = this.queryFilterCollector({
+				limit : this.pageSize,
+				skip : this.records.length
+			});
+			if(index>pageLength){
+				this.doLoad(filters,callback);
+			}else{
+				var records = this.getAt(index);
+				if(callback && 'function' == typeof callback){
+					callback(records);
+				}
+			}		
+		};
+		
+		this.prevPage = function(){
+			if(this.currentPageIndex>0){
+				this.currentPageIndex--;
+			}else{
+				this.currentPageIndex = 0;
+			}
+			return this.getAt(this.currentPageIndex);
+		};
+		
+		this.nextPage = function(callback){
+			var currentLength = this.records.length;
+			var pageLength = currentLength/	this.pageSize;
+			if(this.currentPageIndex >= pageLength){
+				this.loadNextPage(callback);
+			}else{
+				this.currentPageIndex++;
+				return this.getAt(this.currentPageIndex);
+			}
+		};
+		
+		this.getItemsLength = function(callback){
+			this.queryBy(this.currentFilter,callback);
+		};
+		
+		this.queryBy = function(filters,callback){
+			this.currentFilter = filters;
+			var filters = this.queryFilterCollector({
+				limit : this.pageSize,
+				skip : this.records.length
+			});
+			this.doLoad(filters,function(datas){
 				if(callback && 'function' == typeof callback)
 					callback(datas);
 			});
 		};
 		
-		this.save = function(callBack){
-			this.model.save(this.records,callBack);
+		this.queryAll = function(callback){
+			this.doLoad({
+				conditions : "",
+			},function(datas){
+				if(callback && 'function' == typeof callback)
+					callback(datas);
+			});
 		};
 		
+		this.queryAllBy = function(filters,callback){
+			this.currentFilter = filters;
+			this.doLoad({
+				conditions : this.currentFilter,
+			},function(datas){
+				if(callback && 'function' == typeof callback)
+					callback(datas);
+			});
+		};
 		
+		this.queryFilterCollector = function(args){
+			var filters = {};
+			args = args|| {};
+			filters.conditions = this.currentFilter;
+			if((config && config.limit) || args.limit){
+				filters.limit = args.limit || config.limit || "";
+			}
+			
+			if((config && config.skip) || args.skip){
+				filters.skip = args.skip || config.skip || "";
+			}
+			
+			if((config && config.descending) || args.descending){
+				filters.descending = args.descending ? this.model.fields[args.descending].mapping :  this.model.fields[config.descending].mapping || "";
+			}
+			if((config && config.ascending) || args.ascending){
+				filters.ascending = args.ascending ? this.model.fields[args.ascending].mapping : this.model.fields[config.ascending].mapping;
+			}
+			return filters;
+		};
+		
+		this.save = function(callback){
+			this.model.save(this.records,callback);
+		};
 		
 		this.remove = function(records){
 			records = [].concat(records);//records可能只有一条记录
@@ -74,8 +202,6 @@ var QuanStore = (function($,validator,quanGlobal){
 				}
 			}
 		};
-		
-		
 		
 		this.removeAll = function(){
 			this.records = [];

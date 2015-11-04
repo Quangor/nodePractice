@@ -21,18 +21,20 @@ var Update = function(model){
 		for(var i=0;i< length;i++){
 			ids.push(records[i].id);
 		}
-		var idMappingFieldsName = this.currentModel.fileds['id'].mapping;
+		var idMappingFieldsName = this.currentModel.fields['id'].mapping;
 		this.in(idMappingFieldsName,ids);
 		var updatesql = "";
 		for(field in this.currentModel.fields){
 			var mapping = this.currentModel.fields[field].mapping;
-			updatesql += mapping + " = CASE " + idMappingFieldsName;
+			updatesql += ' ' + mapping + " = CASE " + idMappingFieldsName;
 			for(var i=0;i< length;i++){
-				updatesql += " when "  + records[i].id + " then " + records[i][field];
+				updatesql += " when "  + records[i].id + " then " + this.formatBataBaseSet(records[i][field],this.currentModel.fields[field]) + " ";
 			}
+			updatesql += ' END,';
 		}
-		sql += updatesql + this.conditionsCollector();
-		this.baseOp(sql,callBack);
+		updatesql = updatesql.slice(0,-1);
+		sql += updatesql + ' WHERE ' + this.conditionsCollector();
+		this.baseOp(sql,callback);
 	};
 	
 	this.insertOnRecordById = function(callback){

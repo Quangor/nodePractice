@@ -7,10 +7,14 @@ var QuesionType = function(){
 	this.model = quessionTypeModel;
 	
 	this.queryType = function(req,res){
-		var name = req.param('name');
-		var starttime = req.param('starttime');
-		var endtime = req.param('endtime');
 		var queryObject = this.model.getSelectObj();
+		var filters = globalNamespace.parseRequestFilter(req);
+		if(filters && filters.conditions){
+			var conditions = filters.conditions;
+			var name = conditions.name || "";
+			var starttime = conditions.starttime || "";
+			var endtime = conditions.endtime || "";
+		}
 		if(name){
 			queryObject.like("name",name);
 		}
@@ -22,13 +26,12 @@ var QuesionType = function(){
 		if(endtime){
 			queryObject.notMoreThan("time",endtime);
 		}
-		queryObject.descending("time");
+		this.collectFilter(queryObject,filters);
 		queryObject.find(function(err,results){
 			results = me.formatTime(results,'FullTime');
 			globalNamespace.dbOpSuccess(res,err,results);
 		});
 	};
-	
 	
 		
 	this.removeType = function(ids){

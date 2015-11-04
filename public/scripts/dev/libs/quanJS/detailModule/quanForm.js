@@ -23,14 +23,23 @@ var BaseForm = (function($,Validator,quanAjax){
 			this.data =  data;
 		};
 		
+		this.query = function(postResponse,validateError){
+			this.beforePost();
+			quanAjax.loasStoreAfterValidate(postResponse,validateError);
+		};
+		
 		/**
 		 * @parameter postResponse is the function 	execute after post callback;  
 		 * @parameter validateError is the function execute after fail to validate the form data;
 		 * */
-		this.post = function(postResponse,validateError){
+		this.beforePost = function(){
 			this.setName();
 			this.collectData();
 			quanAjax.setPostConfig(this,this.data,this.method);
+		};
+		
+		this.post = function(postResponse,validateError){
+			this.beforePost();
 			quanAjax.postAfterValidate(postResponse,validateError);
 			/*if(this.validate(validateError)){
 				this.dopost(postResponse);

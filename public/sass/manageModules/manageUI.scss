@@ -43,7 +43,6 @@ body{
           padding:5px 8px;
         }
         input,select,button,a.btn{
-          margin-right:12px;
           padding:5px 20px;
           height:30px;
         }
@@ -51,6 +50,9 @@ body{
           @include boxSizing(border-box);
           border:1px solid #999;
           border-radius:8px;
+          &:active{
+            background:rgba(0,0,0,0.2);
+          }
         }
         /*input[type='date'],input[type='time'],input[type='data-time']{
           @include appearance;
@@ -61,7 +63,7 @@ body{
         }
         i.selectIcon{
           position:absolute;
-          right:15px;
+          right:5px;
           top:7.5px;
           width:15px;
           height:15px;
