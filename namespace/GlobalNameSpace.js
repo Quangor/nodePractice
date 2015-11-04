@@ -39,11 +39,6 @@ module.exports = {
 		return JSON.parse(data);
 	},
 	
-	parseRequestFilter : function(req){
-		var filters = req.body.filters;
-		return JSON.parse(filters);
-	},
-	
 	dbOpSuccess : function(res,err,results){
 		var status = err?202:200;
 		var errmsg = err?err:'操作成功';

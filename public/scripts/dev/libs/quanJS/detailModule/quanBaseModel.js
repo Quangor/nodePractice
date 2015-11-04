@@ -98,13 +98,9 @@ var quanBaseModel = (function($,Validator,quanAjax,quanGlobal){
 			this.datas = quanGlobal.clone(datas);
 		};
 		
-		this.load = function(callback,filters){
-			if(filters && 'string' != typeof filters){
-				filters = JSON.stringify(filters);
-			}
-			$.post(this.queryMethod,{
-				filters : filters
-			},function(response){
+		this.load = function(callback,filter){
+			filter = filter || "";
+			$.post(this.queryMethod,filter,function(response){
 				me.datas = quanGlobal.clone(response.datas);
 				callback(response.datas);
 			});
@@ -207,7 +203,7 @@ var quanBaseModel = (function($,Validator,quanAjax,quanGlobal){
 			});
 		};
 		
-		this.update = function(data,callback){
+		this.update = function(data,allback){
 			this.post(this.updateMethod,{
 				data : data
 			},function(response){

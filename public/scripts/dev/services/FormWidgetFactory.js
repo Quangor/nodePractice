@@ -5,10 +5,6 @@ var formWidgetFactory = (function(){
 	 * {
 	 *		text:"showText",
 	 *		type: "button",
-	 * 		placeholder : '',
-	 * 		id : "",
-	 * 		cls : '',
-	 * 		defaultValue : '',
 	 *		events :{
 	 *		  click : function(){
 	 *		  	alert(this.innerText);
@@ -78,11 +74,7 @@ var formWidgetFactory = (function(){
 			}
 		};
 		
-		this._setPlaceHolder = function(){
-			if( widgetConfig.placeholder){
-				this.widget.placeholder = widgetConfig.placeholder;
-			}
-		};
+		
 	};
 	
 	var Button = function(widgetConfig){
@@ -118,55 +110,25 @@ var formWidgetFactory = (function(){
 				this._setName();
 				this._setStyle();
 				this._setType();
-				this._setPlaceHolder ();
 			}
 			return this.widget;
 		};
 	};
 	
 	var Select = function(widgetConfig){
-		var me = this;
 		Widget.call(this,widgetConfig);
 		this.widget = document.createElement("select");
 		
 		this._setOptions = function(){
 			if(widgetConfig.options){
-				this.widget = this.addOptions(this.widget,widgetConfig.options);
-			}else if(widgetConfig.store){
-				this.setOptsByStore(widgetConfig);	
+				var opts = widgetConfig.options;
+				for(var el in opts){
+					var optionWidget = document.createElement("option");
+					optionWidget.value = opts.value || opts.text || "";
+					optionWidget.innerText =  opts.text || opts.value || "";
+					this.widget.appendChild(optionWidget);
+				}
 			}
-		};
-		
-		this.setOptsByStore = function(widgetConfig){
-			if(widgetConfig.store.fields && widgetConfig.store.datas){
-				me.renderStoreDataAsOpations(widgetConfig.store.datas);
-			}else{
-				widgetConfig.store.queryAll(function(datas){
-					me.renderStoreDataAsOpations(datas,widgetConfig.fieldName);
-				});
-			}
-				
-		};
-		
-		this.renderStoreDataAsOpations = function(datas,fieldName){
-			var opts = [];
-			for(var i=0;i<datas.length;i++){
-				var opt = {};
-				opt.value = datas[i][valueField] || "";
-				opt.text = datas[i][textField] || "";
-				opts.push(opt);
-			}
-			me.widget = me.addOptions(me.widget,opts);
-		};
-		
-		this.addOptions = function(widget,opts){
-			for(var el in opts){
-				var optionWidget = document.createElement("option");
-				optionWidget.value = opts[el].value || opts[el].text || "";
-				optionWidget.innerText = opts[el].text|| opts[el].value || "";
-				widget.appendChild(optionWidget);
-			}
-			return widget;
 		};
 		
 		this.createWidget = function(){
@@ -177,17 +139,10 @@ var formWidgetFactory = (function(){
 				this._setId();
 				this._setName();
 				this._setOptions();
+				this._setType();
 				this._setStyle();
 			}
 			return this.widget;
-		};
-	};
-	
-	var Combobox = function(){
-		Widget.call(this,widgetConfig);
-		
-		this.createWidget = function(){
-			
 		};
 	};
 	

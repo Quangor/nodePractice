@@ -50,6 +50,7 @@ body {
           margin-right: 8px;
           padding: 5px 8px; }
         .form-wrapper form ul li input, .form-wrapper form ul li select, .form-wrapper form ul li button, .form-wrapper form ul li a.btn {
+          margin-right: 12px;
           padding: 5px 20px;
           height: 30px; }
         .form-wrapper form ul li a.btn {
@@ -60,8 +61,6 @@ body {
           box-sizing: border-box;
           border: 1px solid #999;
           border-radius: 8px; }
-          .form-wrapper form ul li a.btn:active {
-            background: rgba(0, 0, 0, 0.2); }
         .form-wrapper form ul li select {
           -webkit-appearance: none;
           -ms-appearance: none;
@@ -70,7 +69,7 @@ body {
           text-align: center; }
         .form-wrapper form ul li i.selectIcon {
           position: absolute;
-          right: 5px;
+          right: 15px;
           top: 7.5px;
           width: 15px;
           height: 15px;

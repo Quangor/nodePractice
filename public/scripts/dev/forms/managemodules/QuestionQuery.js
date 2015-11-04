@@ -19,6 +19,6 @@ var QuestionQueryForm = (function(baseform,model){
 			}
 		};
 		this.method = "questionQuery";
-		this.store = store;
+		this.model = model;
 	};
 })(quan.baseform);
