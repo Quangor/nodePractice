@@ -6,7 +6,36 @@ var QuanStore = (function($,validator,quanGlobal){
 		this.currentPageIndex = 0;
 		this.records = [];
 		this.currentFilter = config.filter || "";
-		
+		var doc = document;
+ 		
+ 		(function registEvent(){
+ 			
+ 			var tableName = me.model.method;
+ 			me.eventType = {
+		    	addEventType : tableName+'add',
+		    	loadEventType : tableName+'load',
+		    	removeEventType : tableName + 'remove',
+		    	updateEventType : tableName + 'update',
+		    	refreshEventType : tableName + 'refresh',
+		    	dataChangeEventType : tableName + "change",
+ 			};
+ 			me.events = {
+ 				addEvent : doc.createEvent('Events'),
+		    	loadEvent : doc.createEvent('Events'),
+		    	removeEvent : doc.createEvent('Events'),
+		    	updateEvent : doc.createEvent('Events'),
+		    	updateEvent : doc.createEvent('Events'),
+		    	refreshEvent : doc.createEvent('Events'),
+		    	dataChangeEvent : doc.createEvent('Events')
+ 			};
+ 			me.events.addEvent.initEvent(me.eventType.addEventType);
+ 			me.events.loadEvent.initEvent(me.eventType.loadEventType);
+ 			me.events.removeEvent.initEvent(me.eventType.removeEventType);
+ 			me.events.updateEvent.initEvent(me.eventType.updateEventType);
+ 			me.events.refreshEvent.initEvent(me.eventType.refreshEventType);
+ 			me.events.dataChangeEvent.initEvent(me.eventType.dataChangeEventType);	
+ 		})();
+ 		
 		this.averrage = function(field){
 			var sum = 0;
 			var len = this.records.length;
@@ -63,7 +92,6 @@ var QuanStore = (function($,validator,quanGlobal){
 		
 		this.doLoad = function(filters,callback){
 			this.model.load(function(datas){
-				me.records = quanGlobal.clone(datas);
 				if(callback && 'function' == typeof callback)
 					callback(datas);
 			},filters);
@@ -79,36 +107,64 @@ var QuanStore = (function($,validator,quanGlobal){
 			}else{
 				this.doLoad({
 					conditions : this.currentFilter,
-				},callback);	
+				},function(datas){
+					me.records = datas;
+					me.events.dataChangeEvent.data = datas;
+					me.events.loadChangeEvent.data = datas;
+					document.dispatchEvent(me.events.dataChangeEvent);
+					document.dispatchEvent(me.events.loadChangeEvent);
+					if(callback && 'function' == typeof callback)
+						callback(datas);
+				});	
 			}
 		};
 		
 		this.loadNextPage = function(callback){
 			var currentLength = this.records.length;
 			var pageLength = currentLength/	this.pageSize;
+			var skip = this.records.length;
 			var filters = this.queryFilterCollector({
 				limit : this.pageSize,
-				skip : this.records.length
+				skip : skip
 			});
-			this.doLoad(filters,callback);
+			this.doLoad(filters,function(datas){
+				me.pushNewData(skip,datas);
+				if(callback && 'function' == typeof callback)
+					callback(datas);
+			});
 		};
+		
+		
 		
 		this.loadPageAt = function(index,callback){
 			//this.currentPageIndex = index;
 			var currentLength = this.records.length;
 			var pageLength = currentLength/	this.pageSize;
+			var skip = (index-1)*this.pageSize;
 			var filters = this.queryFilterCollector({
 				limit : this.pageSize,
-				skip : this.records.length
+				skip : skip
 			});
 			if(index>pageLength){
-				this.doLoad(filters,callback);
+				this.doLoad(filters,function(datas){
+					me.pushNewData(skip,datas);
+					if(callback && 'function' == typeof callback)
+						callback(datas);
+				});
 			}else{
 				var records = this.getAt(index);
 				if(callback && 'function' == typeof callback){
 					callback(records);
 				}
 			}		
+		};
+		
+		this.pushNewData = function(skip,datas){
+			for(var i = 0;i<datas.length;i++){
+					me.records[i+skip] = datas[i];
+			}
+			me.events.dataChangeEvent.data = me.records;
+			document.dispatchEvent(me.events.dataChangeEvent);
 		};
 		
 		this.prevPage = function(){

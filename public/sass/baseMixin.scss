@@ -6,6 +6,14 @@
   box-sizing : $sizing;
 }
 
+@mixin userSelect($select : none){
+  -webkit-user-select:$select;
+  -moz-user-select:$select;
+  -ms-user-select:$select;
+  -o-user-select:$select;
+  user-select:$select;
+}
+
 @mixin opacity($opacity:50) {
   opacity: $opacity / 100;
   filter: alpha(opacity=$opacity);

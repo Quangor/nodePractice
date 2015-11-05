@@ -2,6 +2,7 @@
 	<link rel="stylesheet" href="http://10.1.1.205:3001/css/base.css">
 	<link rel="stylesheet" href="http://10.1.1.205:3001/css/quanjs.css">
 	<link rel="stylesheet" href="http://10.1.1.205:3001/css/manageModules/manageUI.css">
+	<link rel="stylesheet" href="http://10.1.1.205:3001/css/manageModules/gridUI.css">
 	<link rel="stylesheet" href="http://10.1.1.205:3001/css/manageModules/quessionmanage.css">
 	<script src="http://10.1.1.205:3001/scripts/dev/config.js"></script>
 	<script src="http://10.1.1.205:3001/scripts/dev/libs/quanJS/libs/jquery.js"></script>
@@ -17,30 +18,10 @@
 	<Script></script>
 </head>
 <body>
-	<div class="form-wrapper">
-		<form id="questionQuery" method="POST" class="formUI">
-			<ul>
-				<li>
-				  <label>类型名:</label>
-				  <input id="name" type="text" name = "name">
-				</li>
-				<li>
-				  <label>开始时间:</label>
-				  <input id="endTime" type="date">
-				</li>
-				<li>
-				  <label>结束时间:</label>
-				  <input id="endTime" type="date">
-				</li>
-				<li>
-				  <a class="btn" id="querysubmit">查询</a>
-				</li>
-			</ul>
-		</form>
-	</div>
 	<div id="questionTypeGridWrapper"></div>
 	<script src="http://10.1.1.205:3001/scripts/dev/services/FormWidgetFactory.js"></script>
 	<script src="http://10.1.1.205:3001/scripts/dev/components/Form.js"></script>
+	<script src="http://10.1.1.205:3001/scripts/dev/components/PagePlugin.js"></script>
 	<script src="http://10.1.1.205:3001/scripts/dev/components/Grid.js"></script>
 	<script src="http://10.1.1.205:3001/scripts/dev/models/Base.js"></script>
 	<script src="http://10.1.1.205:3001/scripts/dev/services/Time.js"></script>

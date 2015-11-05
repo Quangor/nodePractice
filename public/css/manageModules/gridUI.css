@@ -1,0 +1,64 @@
+.manage-grid {
+  width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  margin-top: 10px; }
+  .manage-grid .form-wrapper {
+    margin-bottom: 20px; }
+  .manage-grid .button-dock {
+    width: 100%;
+    height: auto;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ccc;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: white; }
+    .manage-grid .button-dock .btn {
+      padding: 5px 18px;
+      cursor: pointer;
+      margin-right: 10px;
+      background: #F2F2F4;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -o-user-select: none;
+      user-select: none; }
+      .manage-grid .button-dock .btn:active {
+        background: rgba(0, 0, 0, 0.2); }
+  .manage-grid .table {
+    width: 100%;
+    margin-top: 20px;
+    background-color: white; }
+    .manage-grid .table tr {
+      border-top: 1px solid #ccc;
+      height: 30px;
+      line-height: 30px;
+      text-align: center; }
+      .manage-grid .table tr .selectCell {
+        width: 50px;
+        text-align: center; }
+        .manage-grid .table tr .selectCell input[type='checkbox'] {
+          width: 16px;
+          height: 16px;
+          margin: 0;
+          margin-right: 10px;
+          margin-top: 7px;
+          display: inline-block; }
+        .manage-grid .table tr .selectCell input[type='checkbox']:checked {
+          background: white; }
+      .manage-grid .table tr .rowCounterCell {
+        width: 50px; }
+      .manage-grid .table tr td button {
+        -webkit-tap-highlight-color: #f3f3f3;
+        padding: 3px 10px;
+        cursor: pointer;
+        margin-right: 10px; }
+    .manage-grid .table tr.selected td {
+      background: #f3f3f3; }
+
+/*# sourceMappingURL=gridUI.css.map */

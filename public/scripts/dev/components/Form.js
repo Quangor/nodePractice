@@ -63,11 +63,17 @@ var formComponents = (function(formWidgetFactory){
 					var label = document.createElement('label');
 					if(widgetconfig.id){
 						label.for = widgetconfig.id;
-						label.innerText = widgetconfig.label;
 					}
+					
+					label.innerText = widgetconfig.label;
 					li.appendChild(label);
 				}
 				var widget = formWidgetFactory(widgetconfig);
+				if( "select" == widgetconfig.type ){
+					var icon = document.createElement('i');
+					icon.className = "selectIcon";
+					li.appendChild(icon);
+				}
 				li.appendChild(widget);
 				ul.appendChild(li);
 			}

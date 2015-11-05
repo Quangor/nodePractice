@@ -41,7 +41,7 @@ var formWidgetFactory = (function(){
 		
 		this._setCls = function(){
 			if(widgetConfig.cls){
-				this.widget.className = widgetConfig.cls;
+				this.widget.className += widgetConfig.cls;
 			}
 		};
 		
@@ -87,7 +87,8 @@ var formWidgetFactory = (function(){
 	
 	var Button = function(widgetConfig){
 		Widget.call(this,widgetConfig);
-		this.widget = document.createElement("button");
+		this.widget = document.createElement("a");
+		this.widget.className = "btn";
 		this.createWidget = function(){
 			if(widgetConfig){
 				this.listenEvent();
@@ -142,18 +143,18 @@ var formWidgetFactory = (function(){
 				me.renderStoreDataAsOpations(widgetConfig.store.datas);
 			}else{
 				widgetConfig.store.queryAll(function(datas){
-					me.renderStoreDataAsOpations(datas,widgetConfig.fieldName);
+					me.renderStoreDataAsOpations(datas,widgetConfig);
 				});
 			}
 				
 		};
 		
-		this.renderStoreDataAsOpations = function(datas,fieldName){
+		this.renderStoreDataAsOpations = function(datas,widgetConfig){
 			var opts = [];
 			for(var i=0;i<datas.length;i++){
 				var opt = {};
-				opt.value = datas[i][valueField] || "";
-				opt.text = datas[i][textField] || "";
+				opt.value = datas[i][widgetConfig.valueField] || "";
+				opt.text = datas[i][widgetConfig.textField] || "";
 				opts.push(opt);
 			}
 			me.widget = me.addOptions(me.widget,opts);
