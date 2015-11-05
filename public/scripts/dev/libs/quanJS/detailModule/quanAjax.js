@@ -25,6 +25,12 @@ var quanAjax = (function($,Validator){
 			};
 		};
 		
+		this.loasStoreAfterValidate = function(postResponse,validateError,store){
+			if(this.validate(validateError)){
+				store.queryBy(this.data,postResponse);
+			};
+		};
+		
 		this.dopost = function(datapostResponse,url,data){
 			this.post(ur||this.url,this.data,datapostResponse);
 		};

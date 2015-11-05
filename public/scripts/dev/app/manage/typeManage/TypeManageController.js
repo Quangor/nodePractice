@@ -30,11 +30,7 @@ var TypeManageController = (function(Viewcontroller,ViewModel,Time){
 		};
 		
 		this.init = function(){
-			var store = viewModel.getStore('questionType');
-			store.load(function(datas){
-				store.records[0].name = "数学计算";
-				store.save();
-			});
+			viewcontroller.addForm();
 			/*viewcontroller.quesionTypeGrid.setDockButton([{
 				text : "添加",
 				type: "button",
